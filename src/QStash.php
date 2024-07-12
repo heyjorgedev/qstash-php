@@ -4,8 +4,15 @@ namespace HeyJorgeDev\QStash;
 
 class QStash
 {
-    public static function client(string $token): Client
+    public static function client(string $apiKey): Client
     {
-        return new Client($token);
+        return self::factory()
+            ->withApiKey($apiKey)
+            ->make();
+    }
+
+    public static function factory(): Factory
+    {
+        return new Factory();
     }
 }
