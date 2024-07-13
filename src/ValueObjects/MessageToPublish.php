@@ -26,7 +26,7 @@ class MessageToPublish
 
     public function withBody(array|string $body): self
     {
-        return new self(
+        $message = new self(
             destination: $this->destination,
             body: $body,
             delay: $this->delay,
@@ -38,6 +38,12 @@ class MessageToPublish
             deduplicationId: $this->deduplicationId,
             contentBasedDeduplication: $this->contentBasedDeduplication,
         );
+
+        if (is_array($body)) {
+            return $message->asJson();
+        }
+
+        return $message;
     }
 
     public function withMaxRetries(int $retries): self
@@ -244,5 +250,15 @@ class MessageToPublish
         }
 
         return $headers;
+    }
+
+    public function asJson(): self
+    {
+        return $this->withHeader('Content-Type', 'application/json');
+    }
+
+    public function asHtml(): self
+    {
+        return $this->withHeader('Content-Type', 'text/html');
     }
 }

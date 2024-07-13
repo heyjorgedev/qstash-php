@@ -16,7 +16,7 @@ class MessageResource implements MessageInterface
     {
         $upstashHeaders = $message->toUpstashHeaders();
 
-        dd($upstashHeaders);
+        $response = $this->transporter->request('POST', '/publish');
 
         return new MessagePublishResponse();
     }
