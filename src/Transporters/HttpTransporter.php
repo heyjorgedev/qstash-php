@@ -12,8 +12,8 @@ use Psr\Http\Client\ClientInterface as HttpClientInterface;
 class HttpTransporter implements TransporterInterface
 {
     public function __construct(
-        private HttpClientInterface $httpClient,
-        private Headers $headers,
+        private readonly HttpClientInterface $httpClient,
+        private readonly Headers $headers,
     ) {}
 
     public function request(string $method, string $path, array $options = []): Response
