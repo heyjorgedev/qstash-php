@@ -8,6 +8,7 @@ class QStash
     {
         return self::factory()
             ->withApiKey($apiKey)
+            ->withBaseUrl('https://qstash.upstash.io/v2/')
             ->make();
     }
 
