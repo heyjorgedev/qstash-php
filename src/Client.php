@@ -10,6 +10,7 @@ use HeyJorgeDev\QStash\Contracts\TransporterInterface;
 use HeyJorgeDev\QStash\Resources\MessageResource;
 use HeyJorgeDev\QStash\Resources\QueueResource;
 use HeyJorgeDev\QStash\Resources\ScheduleResource;
+use HeyJorgeDev\QStash\ValueObjects\Message;
 
 class Client implements ClientInterface
 {
@@ -28,5 +29,10 @@ class Client implements ClientInterface
     public function messages(): MessageInterface
     {
         return new MessageResource($this->transporter);
+    }
+
+    public function publishJson(string $url, array $body = []): Message
+    {
+        throw new \Exception('Not implemented');
     }
 }

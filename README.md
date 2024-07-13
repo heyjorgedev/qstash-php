@@ -1,18 +1,23 @@
-# This is my package qstash-php
+> **This project is still in early stages of development.**
+> I am still writing most of the API endpoints and the API is under constant change so I do not recommend to use it on production yet. 
+
+
+# QStash Client SDK for PHP
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/heyjorgedev/qstash-php.svg?style=flat-square)](https://packagist.org/packages/heyjorgedev/qstash-php)
 [![Tests](https://img.shields.io/github/actions/workflow/status/heyjorgedev/qstash-php/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/heyjorgedev/qstash-php/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/heyjorgedev/qstash-php.svg?style=flat-square)](https://packagist.org/packages/heyjorgedev/qstash-php)
 
-This is where your description should go. Try and limit it to a paragraph or two. Consider adding a small example.
+**QStash** is an HTTP based messaging and scheduling solution for serverless and
+edge runtimes.
 
-## Support us
+## How does QStash work?
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/qstash-php.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/qstash-php)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+QStash is the message broker between your serverless apps. You send an HTTP
+request to QStash, that includes a destination, a payload and optional settings.
+We durably store your message and will deliver it to the destination API via
+HTTP. In case the destination is not ready to receive the message, we will retry
+the message later, to guarentee at-least-once delivery.
 
 ## Installation
 
@@ -22,11 +27,23 @@ You can install the package via composer:
 composer require heyjorgedev/qstash-php
 ```
 
-## Usage
+### Get your authorization token
+
+Go to [Upstash Console](https://console.upstash.com/qstash) and copy the QSTASH_TOKEN.
+
+## Basic Usage
 
 ```php
-$skeleton = new HeyJorgeDev\QStash();
-echo $skeleton->echoPhrase('Hello, HeyJorgeDev!');
+$client = new HeyJorgeDev\QStash::client('QSTASH_TOKEN');
+
+$message = $client->publishJson(
+    url: "https://my-api...",
+    body: [
+        'hello' => "world",
+    ],
+]);
+
+echo $message->id;
 ```
 
 ## Testing
