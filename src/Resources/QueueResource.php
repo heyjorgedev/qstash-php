@@ -4,17 +4,28 @@ namespace HeyJorgeDev\QStash\Resources;
 
 use HeyJorgeDev\QStash\Contracts\Resources\QueueInterface;
 use HeyJorgeDev\QStash\Contracts\TransporterInterface;
+use HeyJorgeDev\QStash\Models\Queue;
 
 class QueueResource implements QueueInterface
 {
     public function __construct(private readonly TransporterInterface $transporter) {}
 
-    public function list()
+    /**
+     * @return array<Queue>
+     */
+    public function list(): array
     {
-        // TODO: Implement list() method.
+        $response = $this->transporter->request('GET', '/queues');
+        $queues = [];
+
+        foreach ($response->body as $queue) {
+            $queues[] = new Queue(...$queue);
+        }
+
+        return $queues;
     }
 
-    public function get(string $queueName)
+    public function get(string $queueName): Queue
     {
         // TODO: Implement get() method.
     }

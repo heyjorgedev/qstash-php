@@ -3,6 +3,8 @@
 namespace HeyJorgeDev\QStash;
 
 use HeyJorgeDev\QStash\Transporters\HttpTransporter;
+use HeyJorgeDev\QStash\ValueObjects\Transporter\Headers;
+use Http\Discovery\Psr18ClientDiscovery;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
 
 class Factory
@@ -20,6 +22,16 @@ class Factory
 
     public function make(): Client
     {
-        return new Client(new HttpTransporter());
+        $headers = new Headers();
+
+        if ($this->apiKey) {
+            $headers = $headers->withAuthorization($this->apiKey);
+        }
+
+        $client = $this->httpClient ??= Psr18ClientDiscovery::find();
+
+        $transporter = new HttpTransporter($client, $headers);
+
+        return new Client($transporter);
     }
 }
