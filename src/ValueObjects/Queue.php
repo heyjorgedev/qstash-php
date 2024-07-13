@@ -5,10 +5,10 @@ namespace HeyJorgeDev\QStash\ValueObjects;
 class Queue
 {
     public function __construct(
-        public readonly string $name,
-        public readonly int $parallelism,
-        public readonly int $lag,
-        public readonly int $createdAt,
-        public readonly int $updatedAt,
+        public readonly string $name = '',
+        public readonly int $parallelism = 0,
+        public readonly int $lag = 0,
+        public readonly int $createdAt = 0,
+        public readonly int $updatedAt = 0,
     ) {}
 }

@@ -7,10 +7,22 @@ use HeyJorgeDev\QStash\Contracts\TransporterInterface;
 use HeyJorgeDev\QStash\Responses\QueueDeleteResponse;
 use HeyJorgeDev\QStash\Responses\QueueGetResponse;
 use HeyJorgeDev\QStash\Responses\QueueListResponse;
+use HeyJorgeDev\QStash\Responses\QueueUpsertResponse;
+use HeyJorgeDev\QStash\ValueObjects\UpsertQueue;
 
 class QueueResource implements QueueInterface
 {
     public function __construct(private readonly TransporterInterface $transporter) {}
+
+    public function upsert(UpsertQueue $queue): QueueUpsertResponse
+    {
+        $response = $this->transporter->request('POST', '/queues', $queue->toArray());
+        if ($response->statusCode !== 200) {
+            return new QueueUpsertResponse($response->statusCode, $response->body);
+        }
+
+        return new QueueUpsertResponse($response->statusCode, []);
+    }
 
     public function list(): QueueListResponse
     {

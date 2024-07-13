@@ -22,7 +22,9 @@ class Factory
 
     public function make(): Client
     {
-        $headers = new Headers();
+        $headers = new Headers([
+            'Content-Type' => 'application/json',
+        ]);
 
         if ($this->apiKey) {
             $headers = $headers->withAuthorization($this->apiKey);
