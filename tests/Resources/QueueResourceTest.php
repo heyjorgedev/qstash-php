@@ -9,7 +9,6 @@ use HeyJorgeDev\QStash\ValueObjects\Transporter\Response;
 test('list', function () {
     $transporter = new MockTransporter([
         'GET /queues' => new Response(
-            statusCode: 200,
             body: [
                 [
                     'name' => 'my-queue',
@@ -38,7 +37,6 @@ test('list', function () {
 test('get', function () {
     $transporter = new MockTransporter([
         'GET /queues/my-queue' => new Response(
-            statusCode: 200,
             body: [
                 'name' => 'my-queue',
                 'parallelism' => 5,
@@ -57,4 +55,20 @@ test('get', function () {
     $result = $resource->get('my-queue');
 
     expect($result)->toBeInstanceOf(Queue::class);
+});
+
+test('delete', function () {
+    $transporter = new MockTransporter([
+        'DELETE /queues/my-queue' => new Response(
+            headers: new Headers([
+                'Content-Type' => 'application/json',
+            ]),
+        ),
+    ]);
+
+    $resource = new QueueResource($transporter);
+
+    $result = $resource->delete('my-queue');
+
+    expect($result)->toBeTrue();
 });

@@ -32,8 +32,10 @@ class QueueResource implements QueueInterface
         return new Queue(...$response->body);
     }
 
-    public function delete(string $queueName)
+    public function delete(string $queueName): bool
     {
-        // TODO: Implement delete() method.
+        $response = $this->transporter->request('DELETE', "/queues/{$queueName}");
+
+        return $response->statusCode === 200;
     }
 }
