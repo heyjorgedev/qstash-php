@@ -3,6 +3,7 @@
 use GuzzleHttp\Psr7\Response;
 use HeyJorgeDev\QStash\Transporters\HttpTransporter;
 use HeyJorgeDev\QStash\ValueObjects\Transporter\Headers;
+use HeyJorgeDev\QStash\ValueObjects\Url;
 use Psr\Http\Client\ClientInterface;
 
 it('can be initialized', function () {
@@ -11,7 +12,7 @@ it('can be initialized', function () {
     $client->shouldReceive('sendRequest')
         ->andReturn(new Response(200, ['Content-Type' => 'application/json'], '{"hello": "world"}'));
 
-    $transporter = new HttpTransporter($client, new Headers([]));
+    $transporter = new HttpTransporter($client, new Url('https://example.com'), new Headers([]));
 
     $response = $transporter->request('GET', 'http://example.com', []);
 
