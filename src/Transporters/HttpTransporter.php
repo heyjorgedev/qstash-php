@@ -6,6 +6,7 @@ use GuzzleHttp\Psr7\Request;
 use HeyJorgeDev\QStash\Contracts\TransporterInterface;
 use HeyJorgeDev\QStash\ValueObjects\Transporter\Headers;
 use HeyJorgeDev\QStash\ValueObjects\Transporter\Response;
+use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
 
 class HttpTransporter implements TransporterInterface
@@ -19,12 +20,18 @@ class HttpTransporter implements TransporterInterface
     {
         $request = new Request($method, $path, $this->headers->toArray(), $options['body'] ?? null);
 
-        $response = $this->httpClient->sendRequest($request);
+        try {
+            $response = $this->httpClient->sendRequest($request);
 
-        return new Response(
-            $response->getStatusCode(),
-            json_decode($response->getBody()->getContents(), true),
-            new Headers($response->getHeaders())
-        );
+            return new Response(
+                $response->getStatusCode(),
+                json_decode($response->getBody()->getContents(), true),
+                new Headers($response->getHeaders())
+            );
+        } catch (ClientExceptionInterface $exception) {
+            return new Response($exception->getCode(), [$exception->getMessage()], new Headers([]));
+        } catch (\Exception $exception) {
+            return new Response(500, [$exception->getMessage()], new Headers([]));
+        }
     }
 }
