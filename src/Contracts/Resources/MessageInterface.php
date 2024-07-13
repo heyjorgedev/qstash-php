@@ -2,6 +2,8 @@
 
 namespace HeyJorgeDev\QStash\Contracts\Resources;
 
+use HeyJorgeDev\QStash\ValueObjects\Message;
+
 interface MessageInterface
 {
     public function publish();
@@ -10,7 +12,7 @@ interface MessageInterface
 
     public function batch();
 
-    public function get(string $messageId);
+    public function get(string $messageId): Message;
 
     public function cancel(string $messageId);
 

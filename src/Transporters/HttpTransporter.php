@@ -2,6 +2,7 @@
 
 namespace HeyJorgeDev\QStash\Transporters;
 
+use GuzzleHttp\Psr7\Request;
 use HeyJorgeDev\QStash\Contracts\TransporterInterface;
 use HeyJorgeDev\QStash\ValueObjects\Transporter\Headers;
 use HeyJorgeDev\QStash\ValueObjects\Transporter\Response;
@@ -16,6 +17,14 @@ class HttpTransporter implements TransporterInterface
 
     public function request(string $method, string $path, array $options = []): Response
     {
-        return new Response(200, [], new Headers([]));
+        $request = new Request($method, $path, $this->headers->toArray(), $options['body'] ?? null);
+
+        $response = $this->httpClient->sendRequest($request);
+
+        return new Response(
+            $response->getStatusCode(),
+            [],
+            new Headers($response->getHeaders())
+        );
     }
 }

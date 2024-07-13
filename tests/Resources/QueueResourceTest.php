@@ -1,12 +1,13 @@
 <?php
 
-use HeyJorgeDev\QStash\Models\Queue;
 use HeyJorgeDev\QStash\Resources\QueueResource;
+use HeyJorgeDev\QStash\Responses\QueueListResponse;
 use HeyJorgeDev\QStash\Tests\Mocks\MockTransporter;
+use HeyJorgeDev\QStash\ValueObjects\Queue;
 use HeyJorgeDev\QStash\ValueObjects\Transporter\Headers;
 use HeyJorgeDev\QStash\ValueObjects\Transporter\Response;
 
-test('list', function () {
+it('can return a list of queues if the request is successful', function () {
     $transporter = new MockTransporter([
         'GET /queues' => new Response(
             body: [
@@ -26,12 +27,31 @@ test('list', function () {
 
     $resource = new QueueResource($transporter);
 
-    $result = $resource->list();
+    $response = $resource->list();
 
-    expect($result)
-        ->toBeArray()
-        ->toHaveCount(1);
+    expect($response)
+        ->toBeInstanceOf(QueueListResponse::class)
+        ->isSuccessful()->toBeTrue()
+        ->getData()->toBeArray()->toHaveCount(1);
 
+});
+
+it('returns isSuccessful false to list queues that is not successful', function () {
+    $transporter = new MockTransporter([
+        'GET /queues' => new Response(
+            statusCode: 500,
+            body: [],
+            headers: new Headers([
+                'Content-Type' => 'application/json',
+            ]),
+        ),
+    ]);
+
+    $resource = new QueueResource($transporter);
+
+    $response = $resource->list();
+
+    expect($response)->isSuccessful()->toBeFalse();
 });
 
 test('get', function () {

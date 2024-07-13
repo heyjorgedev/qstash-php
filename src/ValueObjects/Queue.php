@@ -1,6 +1,6 @@
 <?php
 
-namespace HeyJorgeDev\QStash\Models;
+namespace HeyJorgeDev\QStash\ValueObjects;
 
 class Queue
 {
