@@ -72,9 +72,11 @@ test('get', function () {
 
     $resource = new QueueResource($transporter);
 
-    $result = $resource->get('my-queue');
+    $response = $resource->get('my-queue');
 
-    expect($result)->toBeInstanceOf(Queue::class);
+    expect($response)
+        ->isSuccessful()->toBeTrue()
+        ->getData()->toBeInstanceOf(Queue::class);
 });
 
 test('delete', function () {
@@ -88,7 +90,7 @@ test('delete', function () {
 
     $resource = new QueueResource($transporter);
 
-    $result = $resource->delete('my-queue');
+    $response = $resource->delete('my-queue');
 
-    expect($result)->toBeTrue();
+    expect($response)->isSuccessful()->toBeTrue();
 });
