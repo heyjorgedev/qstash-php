@@ -4,6 +4,7 @@ namespace HeyJorgeDev\QStash\Resources;
 
 use HeyJorgeDev\QStash\Contracts\Resources\MessageInterface;
 use HeyJorgeDev\QStash\Contracts\TransporterInterface;
+use HeyJorgeDev\QStash\ValueObjects\Message;
 
 class MessageResource implements MessageInterface
 {
@@ -24,7 +25,7 @@ class MessageResource implements MessageInterface
         // TODO: Implement batch() method.
     }
 
-    public function get(string $messageId)
+    public function get(string $messageId): Message
     {
         // TODO: Implement get() method.
     }
