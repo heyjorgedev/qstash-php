@@ -23,7 +23,7 @@ class HttpTransporter implements TransporterInterface
 
         return new Response(
             $response->getStatusCode(),
-            [],
+            json_decode($response->getBody()->getContents(), true),
             new Headers($response->getHeaders())
         );
     }

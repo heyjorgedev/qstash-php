@@ -23,8 +23,9 @@
     },
     "require-dev": {
         "guzzlehttp/guzzle": "^7.8.1",
-        "pestphp/pest": "^2.20",
         "laravel/pint": "^1.0",
+        "mockery/mockery": "^1.6",
+        "pestphp/pest": "^2.20",
         "spatie/ray": "^1.28"
     },
     "autoload": {
