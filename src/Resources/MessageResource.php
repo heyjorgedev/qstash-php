@@ -14,6 +14,10 @@ class MessageResource implements MessageInterface
 
     public function publish(MessageToPublish $message): MessagePublishResponse
     {
+        $upstashHeaders = $message->toUpstashHeaders();
+
+        dd($upstashHeaders);
+
         return new MessagePublishResponse();
     }
 

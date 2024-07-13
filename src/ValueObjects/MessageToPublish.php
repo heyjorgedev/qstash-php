@@ -56,9 +56,13 @@ class MessageToPublish
         );
     }
 
-    public function withDelay(int $seconds = 0, int $minutes = 0, int $hours = 0): self
+    public function withDelay(int $days = 0, int $hours = 0, int $minutes = 0, int $seconds = 0): self
     {
-        $delay = $seconds + ($minutes * 60) + ($hours * 3600);
+        $oneMinute = 60;
+        $oneHour = 60 * $oneMinute;
+        $oneDay = 24 * $oneHour;
+
+        $delay = $seconds + ($minutes * $oneMinute) + ($hours * $oneHour) + ($days * $oneDay);
 
         return new self(
             destination: $this->destination,
@@ -141,8 +145,15 @@ class MessageToPublish
         );
     }
 
-    public function withHeaders(Headers $headers): self
+    /**
+     * @param  Headers|array<string, string|array<string>>  $headers
+     */
+    public function withHeaders(Headers|array $headers): self
     {
+        if (is_array($headers)) {
+            $headers = new Headers($headers);
+        }
+
         return new self(
             destination: $this->destination,
             body: $this->body,
