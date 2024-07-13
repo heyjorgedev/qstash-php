@@ -16,5 +16,3 @@ class QStash
         return new Factory();
     }
 }
-
-QStash::client('')->messages()->enqueue();
