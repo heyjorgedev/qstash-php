@@ -16,8 +16,6 @@ class QueueDeleteResponse implements ResponseInterface
         return $this->statusCode === 200;
     }
 
-    public function getData(): void {}
-
     public function getErrors(): array
     {
         return $this->errors;

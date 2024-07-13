@@ -2,10 +2,10 @@
 
 namespace HeyJorgeDev\QStash\Responses;
 
-use HeyJorgeDev\QStash\Contracts\ResponseInterface;
+use HeyJorgeDev\QStash\Contracts\ResponseWithDataInterface;
 use HeyJorgeDev\QStash\ValueObjects\Queue;
 
-class QueueGetResponse implements ResponseInterface
+class QueueGetResponse implements ResponseWithDataInterface
 {
     public function __construct(
         protected int $statusCode,

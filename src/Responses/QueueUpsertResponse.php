@@ -16,8 +16,6 @@ class QueueUpsertResponse implements ResponseInterface
         return $this->statusCode === 200;
     }
 
-    public function getData(): void {}
-
     public function getErrors(): array
     {
         if ($this->isSuccessful()) {

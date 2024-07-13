@@ -2,10 +2,10 @@
 
 namespace HeyJorgeDev\QStash\Responses;
 
-use HeyJorgeDev\QStash\Contracts\ResponseInterface;
+use HeyJorgeDev\QStash\Contracts\ResponseWithDataInterface;
 use HeyJorgeDev\QStash\ValueObjects\Queue;
 
-class QueueListResponse implements ResponseInterface
+class QueueListResponse implements ResponseWithDataInterface
 {
     /**
      * @param  array<Queue>  $data
