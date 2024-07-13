@@ -7,8 +7,7 @@ use HeyJorgeDev\QStash\ValueObjects\Transporter\Headers;
 class MessageToPublish
 {
     public function __construct(
-        private string $topic = '',
-        private string $url = '',
+        private Url|TopicName $destination,
         private array|string $body = [],
         private int $delay = 0,
         private int $retries = 0,
@@ -20,16 +19,15 @@ class MessageToPublish
         private bool $contentBasedDeduplication = false,
     ) {}
 
-    public static function to(string $url): self
+    public static function to(Url|TopicName $url): self
     {
-        return new self(url: $url);
+        return new self(destination: $url);
     }
 
     public function withBody(array|string $body): self
     {
         return new self(
-            topic: $this->topic,
-            url: $this->url,
+            destination: $this->destination,
             body: $body,
             delay: $this->delay,
             retries: $this->retries,
@@ -45,8 +43,7 @@ class MessageToPublish
     public function withMaxRetries(int $retries): self
     {
         return new self(
-            topic: $this->topic,
-            url: $this->url,
+            destination: $this->destination,
             body: $this->body,
             delay: $this->delay,
             retries: $retries,
@@ -64,8 +61,7 @@ class MessageToPublish
         $delay = $seconds + ($minutes * 60) + ($hours * 3600);
 
         return new self(
-            topic: $this->topic,
-            url: $this->url,
+            destination: $this->destination,
             body: $this->body,
             delay: $delay,
             retries: $this->retries,
@@ -81,8 +77,7 @@ class MessageToPublish
     public function withMethod(string $method): self
     {
         return new self(
-            topic: $this->topic,
-            url: $this->url,
+            destination: $this->destination,
             body: $this->body,
             delay: $this->delay,
             retries: $this->retries,
@@ -118,8 +113,7 @@ class MessageToPublish
     public function withCallback(Url $callback): self
     {
         return new self(
-            topic: $this->topic,
-            url: $this->url,
+            destination: $this->destination,
             body: $this->body,
             delay: $this->delay,
             retries: $this->retries,
@@ -134,8 +128,7 @@ class MessageToPublish
     public function withFailureCallback(Url $callback): self
     {
         return new self(
-            topic: $this->topic,
-            url: $this->url,
+            destination: $this->destination,
             body: $this->body,
             delay: $this->delay,
             retries: $this->retries,
@@ -151,8 +144,7 @@ class MessageToPublish
     public function withHeaders(Headers $headers): self
     {
         return new self(
-            topic: $this->topic,
-            url: $this->url,
+            destination: $this->destination,
             body: $this->body,
             delay: $this->delay,
             retries: $this->retries,
@@ -175,8 +167,7 @@ class MessageToPublish
     public function withDeduplicationId(string $id): self
     {
         return new self(
-            topic: $this->topic,
-            url: $this->url,
+            destination: $this->destination,
             body: $this->body,
             delay: $this->delay,
             retries: $this->retries,
@@ -192,8 +183,7 @@ class MessageToPublish
     public function withContentBasedDeduplication(bool $value = true): self
     {
         return new self(
-            topic: $this->topic,
-            url: $this->url,
+            destination: $this->destination,
             body: $this->body,
             delay: $this->delay,
             retries: $this->retries,
