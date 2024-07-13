@@ -18,4 +18,15 @@ class Headers
     {
         return $this->headers;
     }
+
+    /**
+     * @param  array<string>|string  $value
+     */
+    public function with(string $key, array|string $value): Headers
+    {
+        return new self([
+            ...$this->headers,
+            $key => $value,
+        ]);
+    }
 }
