@@ -35,4 +35,9 @@ class Client implements ClientInterface
     {
         throw new \Exception('Not implemented');
     }
+
+    public function publish(string $url, string $body): Message
+    {
+        throw new \Exception('Not implemented');
+    }
 }
