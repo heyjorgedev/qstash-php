@@ -12,7 +12,7 @@ class UpsertQueue
     public function toArray(): array
     {
         return [
-            'name' => $this->name,
+            'queueName' => $this->name,
             'parallelism' => $this->parallelism,
         ];
     }

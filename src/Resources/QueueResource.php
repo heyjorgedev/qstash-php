@@ -16,7 +16,9 @@ class QueueResource implements QueueInterface
 
     public function upsert(UpsertQueue $queue): QueueUpsertResponse
     {
-        $response = $this->transporter->request('POST', '/queues', $queue->toArray());
+        $response = $this->transporter->request('POST', '/queues', [
+            'body' => json_encode($queue->toArray()),
+        ]);
         if ($response->statusCode !== 200) {
             return new QueueUpsertResponse($response->statusCode, $response->body);
         }
