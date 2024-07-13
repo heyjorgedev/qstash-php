@@ -3,10 +3,11 @@
 namespace HeyJorgeDev\QStash\Contracts\Resources;
 
 use HeyJorgeDev\QStash\ValueObjects\Message;
+use HeyJorgeDev\QStash\ValueObjects\MessageToPublish;
 
 interface MessageInterface
 {
-    public function publish();
+    public function publish(MessageToPublish $message);
 
     public function enqueue();
 
