@@ -4,6 +4,7 @@ namespace HeyJorgeDev\QStash\Resources;
 
 use HeyJorgeDev\QStash\Contracts\Resources\MessageInterface;
 use HeyJorgeDev\QStash\Contracts\TransporterInterface;
+use HeyJorgeDev\QStash\Responses\MessagePublishResponse;
 use HeyJorgeDev\QStash\ValueObjects\Message;
 use HeyJorgeDev\QStash\ValueObjects\MessageToPublish;
 
@@ -11,9 +12,9 @@ class MessageResource implements MessageInterface
 {
     public function __construct(private readonly TransporterInterface $transporter) {}
 
-    public function publish(MessageToPublish $message)
+    public function publish(MessageToPublish $message): MessagePublishResponse
     {
-        // TODO: Implement publish() method.
+        return new MessagePublishResponse();
     }
 
     public function enqueue()
