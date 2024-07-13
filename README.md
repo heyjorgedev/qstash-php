@@ -47,7 +47,14 @@ $message = $client->publish(
         ])
 ]);
 
-echo $message->id;
+// to know if the request was successful:
+echo $message->isSuccessful()
+
+// to get the message
+echo $message->getData();
+
+// to get the message id
+echo $message->getData()->id;
 ```
 
 ## Testing

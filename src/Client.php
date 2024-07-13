@@ -10,7 +10,7 @@ use HeyJorgeDev\QStash\Contracts\TransporterInterface;
 use HeyJorgeDev\QStash\Resources\MessageResource;
 use HeyJorgeDev\QStash\Resources\QueueResource;
 use HeyJorgeDev\QStash\Resources\ScheduleResource;
-use HeyJorgeDev\QStash\ValueObjects\Message;
+use HeyJorgeDev\QStash\Responses\MessagePublishResponse;
 use HeyJorgeDev\QStash\ValueObjects\MessageToPublish;
 
 class Client implements ClientInterface
@@ -32,8 +32,8 @@ class Client implements ClientInterface
         return new MessageResource($this->transporter);
     }
 
-    public function publish(MessageToPublish $messageToPublish): Message
+    public function publish(MessageToPublish $messageToPublish): MessagePublishResponse
     {
-        return $this->messages()->publish($messageToPublish)->getData();
+        return $this->messages()->publish($messageToPublish);
     }
 }
