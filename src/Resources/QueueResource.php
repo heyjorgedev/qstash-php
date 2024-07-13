@@ -27,7 +27,9 @@ class QueueResource implements QueueInterface
 
     public function get(string $queueName): Queue
     {
-        // TODO: Implement get() method.
+        $response = $this->transporter->request('GET', "/queues/{$queueName}");
+
+        return new Queue(...$response->body);
     }
 
     public function delete(string $queueName)
