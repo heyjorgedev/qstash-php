@@ -11,6 +11,7 @@ use HeyJorgeDev\QStash\Resources\MessageResource;
 use HeyJorgeDev\QStash\Resources\QueueResource;
 use HeyJorgeDev\QStash\Resources\ScheduleResource;
 use HeyJorgeDev\QStash\ValueObjects\Message;
+use HeyJorgeDev\QStash\ValueObjects\MessageToPublish;
 
 class Client implements ClientInterface
 {
@@ -31,13 +32,8 @@ class Client implements ClientInterface
         return new MessageResource($this->transporter);
     }
 
-    public function publishJson(string $url, array $body = []): Message
+    public function publish(MessageToPublish $messageToPublish): Message
     {
-        throw new \Exception('Not implemented');
-    }
-
-    public function publish(string $url, string $body): Message
-    {
-        throw new \Exception('Not implemented');
+        return $this->messages()->publish($messageToPublish)->getData();
     }
 }

@@ -6,6 +6,7 @@ use HeyJorgeDev\QStash\Contracts\Resources\MessageInterface;
 use HeyJorgeDev\QStash\Contracts\Resources\QueueInterface;
 use HeyJorgeDev\QStash\Contracts\Resources\ScheduleInterface;
 use HeyJorgeDev\QStash\ValueObjects\Message;
+use HeyJorgeDev\QStash\ValueObjects\MessageToPublish;
 
 interface ClientInterface
 {
@@ -15,8 +16,5 @@ interface ClientInterface
 
     public function messages(): MessageInterface;
 
-    public function publishJson(
-        string $url,
-        array $body = [],
-    ): Message;
+    public function publish(MessageToPublish $messageToPublish): Message;
 }

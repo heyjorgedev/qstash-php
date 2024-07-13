@@ -34,13 +34,17 @@ Go to [Upstash Console](https://console.upstash.com/qstash) and copy the QSTASH_
 ## Basic Usage
 
 ```php
-$client = new HeyJorgeDev\QStash::client('QSTASH_TOKEN');
+use HeyJorgeDev\QStash\QStash;
+use HeyJorgeDev\QStash\ValueObjects\Message;
+use HeyJorgeDev\QStash\ValueObjects\Url;
 
-$message = $client->publishJson(
-    url: "https://my-api...",
-    body: [
-        'hello' => "world",
-    ],
+$client = QStash::client('QSTASH_TOKEN');
+
+$message = $client->publish(
+    Message::to(new Url('https://my-api...'))
+        ->withBody([
+            'hello' => 'world',
+        ])
 ]);
 
 echo $message->id;

@@ -3,6 +3,7 @@
 namespace HeyJorgeDev\QStash\Responses;
 
 use HeyJorgeDev\QStash\Contracts\ResponseWithDataInterface;
+use HeyJorgeDev\QStash\ValueObjects\Message;
 
 class MessagePublishResponse implements ResponseWithDataInterface
 {
@@ -16,7 +17,7 @@ class MessagePublishResponse implements ResponseWithDataInterface
         // TODO: Implement getErrors() method.
     }
 
-    public function getData()
+    public function getData(): Message
     {
         // TODO: Implement getData() method.
     }
