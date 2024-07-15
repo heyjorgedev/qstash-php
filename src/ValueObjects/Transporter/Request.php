@@ -14,6 +14,32 @@ class Request
         public string|array|null $body = null,
     ) {}
 
+    public static function GET(string|Url $url): self
+    {
+        return (new self(method: 'GET'))
+            ->withUrl($url);
+    }
+
+    public static function POST(string|Url $url, string|array|null $body = null): self
+    {
+        return (new self(method: 'POST'))
+            ->withUrl($url)
+            ->withBody($body);
+    }
+
+    public static function PUT(string|Url $url, string|array|null $body = null): self
+    {
+        return (new self(method: 'PUT'))
+            ->withUrl($url)
+            ->withBody($body);
+    }
+
+    public static function DELETE(string|Url $url): self
+    {
+        return (new self(method: 'DELETE'))
+            ->withUrl($url);
+    }
+
     public function withMethod(string $method): self
     {
         return new self(
@@ -67,5 +93,10 @@ class Request
             headers: $this->headers,
             body: $body,
         );
+    }
+
+    public function withBaseUrl(Url $baseUrl): self
+    {
+        return $this->withUrl($baseUrl->append($this->url->toString()));
     }
 }

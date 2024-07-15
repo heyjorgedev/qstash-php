@@ -18,6 +18,9 @@ class HttpTransporter implements TransporterInterface
         private readonly Headers $headers,
     ) {}
 
+    /**
+     * @deprecated use send method instead
+     */
     public function request(string $method, string $path, array $options = []): Response
     {
         $request = (new Request())
@@ -30,7 +33,10 @@ class HttpTransporter implements TransporterInterface
 
     public function send(Request $request): Response
     {
-        $request = $request->appendHeaders($this->headers->with('Content-Type', 'application/json'));
+        $request = $request
+            ->withBaseUrl($this->baseUrl)
+            ->appendHeaders($this->headers->with('Content-Type', 'application/json'));
+
         try {
             $response = $this->httpClient->sendRequest($request->toPsr7Request());
 
