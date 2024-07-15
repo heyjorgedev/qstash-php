@@ -7,8 +7,8 @@ use HeyJorgeDev\QStash\ValueObjects\Transporter\Headers;
 class MessageToPublish
 {
     public function __construct(
-        private Url|TopicName $destination,
-        private array|string $body = [],
+        public readonly Url|TopicName $destination,
+        public readonly array|string $body = [],
         private int $delay = 0,
         private int $retries = 0,
         private string $method = 'GET',

@@ -38,6 +38,7 @@ class HttpTransporter implements TransporterInterface
             ->appendHeaders($this->headers->with('Content-Type', 'application/json'));
 
         try {
+
             $response = $this->httpClient->sendRequest($request->toPsr7Request());
 
             return new Response(

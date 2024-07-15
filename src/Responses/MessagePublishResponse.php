@@ -7,18 +7,24 @@ use HeyJorgeDev\QStash\ValueObjects\Message;
 
 class MessagePublishResponse implements ResponseWithDataInterface
 {
+    public function __construct(
+        protected int $statusCode,
+        protected array $data,
+        protected array $errors,
+    ) {}
+
     public function isSuccessful(): bool
     {
-        // TODO: Implement isSuccessful() method.
+        return $this->statusCode === 200;
     }
 
     public function getErrors(): array
     {
-        // TODO: Implement getErrors() method.
+        return $this->errors;
     }
 
     public function getData(): Message
     {
-        return new Message();
+        return new Message(id: $this->data['messageId']);
     }
 }

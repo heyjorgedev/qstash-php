@@ -9,4 +9,9 @@ class Response
         public readonly ?array $body = null,
         public readonly Headers $headers = new Headers([]),
     ) {}
+
+    public function isSuccessful(): bool
+    {
+        return $this->statusCode >= 200 && $this->statusCode < 300;
+    }
 }

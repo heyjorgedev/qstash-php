@@ -75,16 +75,6 @@ class Request
         return $this->withHeaders($this->headers->merge($headers));
     }
 
-    public function toPsr7Request(): Psr7Request
-    {
-        return new Psr7Request(
-            method: $this->method,
-            uri: $this->url->toString(),
-            headers: $this->headers->toArray(),
-            body: $this->body,
-        );
-    }
-
     public function withBody(string|array|null $body): self
     {
         return new self(
@@ -98,5 +88,15 @@ class Request
     public function withBaseUrl(Url $baseUrl): self
     {
         return $this->withUrl($baseUrl->append($this->url->toString()));
+    }
+
+    public function toPsr7Request(): Psr7Request
+    {
+        return new Psr7Request(
+            method: $this->method,
+            uri: $this->url->toString(),
+            headers: $this->headers->toArray(),
+            body: is_array($this->body) ? json_encode($this->body) : $this->body,
+        );
     }
 }
