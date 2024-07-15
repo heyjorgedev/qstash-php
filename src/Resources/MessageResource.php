@@ -5,6 +5,7 @@ namespace HeyJorgeDev\QStash\Resources;
 use HeyJorgeDev\QStash\Contracts\Resources\MessageInterface;
 use HeyJorgeDev\QStash\Contracts\TransporterInterface;
 use HeyJorgeDev\QStash\Exceptions\NotImplementedException;
+use HeyJorgeDev\QStash\Responses\MessageEnqueueResponse;
 use HeyJorgeDev\QStash\Responses\MessagePublishResponse;
 use HeyJorgeDev\QStash\ValueObjects\Message;
 use HeyJorgeDev\QStash\ValueObjects\MessageToPublish;
@@ -39,9 +40,29 @@ class MessageResource implements MessageInterface
         );
     }
 
-    public function enqueue()
+    public function enqueue(string $queueName, MessageToPublish $message): MessageEnqueueResponse
     {
-        throw NotImplementedException::askForContributions('enqueue messages');
+        $upstashHeaders = $message->toUpstashHeaders();
+
+        $request = Request::POST("/publish/{$queueName}/{$message->destination->toString()}")
+            ->withBody($message->body)
+            ->appendHeaders($upstashHeaders);
+
+        $response = $this->transporter->send($request);
+
+        if (! $response->isSuccessful()) {
+            return new MessageEnqueueResponse(
+                $response->statusCode,
+                [],
+                $response->body
+            );
+        }
+
+        return new MessageEnqueueResponse(
+            $response->statusCode,
+            $response->body,
+            []
+        );
     }
 
     public function batch()

@@ -43,7 +43,7 @@ class Request
     public function withMethod(string $method): self
     {
         return new self(
-            method: $method,
+            method: strtoupper($method),
             url: $this->url,
             headers: $this->headers,
             body: $this->body,

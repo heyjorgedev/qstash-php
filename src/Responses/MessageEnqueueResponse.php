@@ -5,7 +5,7 @@ namespace HeyJorgeDev\QStash\Responses;
 use HeyJorgeDev\QStash\Contracts\ResponseWithDataInterface;
 use HeyJorgeDev\QStash\ValueObjects\Message;
 
-class MessagePublishResponse implements ResponseWithDataInterface
+class MessageEnqueueResponse implements ResponseWithDataInterface
 {
     public function __construct(
         protected int $statusCode,
