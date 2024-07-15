@@ -5,6 +5,7 @@ namespace HeyJorgeDev\QStash\Resources;
 use HeyJorgeDev\QStash\Contracts\Resources\MessageInterface;
 use HeyJorgeDev\QStash\Contracts\TransporterInterface;
 use HeyJorgeDev\QStash\Exceptions\NotImplementedException;
+use HeyJorgeDev\QStash\Responses\MessageCancelResponse;
 use HeyJorgeDev\QStash\Responses\MessageEnqueueResponse;
 use HeyJorgeDev\QStash\Responses\MessagePublishResponse;
 use HeyJorgeDev\QStash\ValueObjects\Message;
@@ -75,9 +76,23 @@ class MessageResource implements MessageInterface
         throw NotImplementedException::askForContributions('get single message');
     }
 
-    public function cancel(string $messageId)
+    public function cancel(string $messageId): MessageCancelResponse
     {
-        throw NotImplementedException::askForContributions('cancel a message');
+        $request = Request::DELETE("/messages/{$messageId}");
+
+        $response = $this->transporter->send($request);
+
+        if (! $response->isSuccessful()) {
+            return new MessageCancelResponse(
+                $response->statusCode,
+                $response->body
+            );
+        }
+
+        return new MessageCancelResponse(
+            $response->statusCode,
+            []
+        );
     }
 
     public function bulkCancel(array $messageIds)

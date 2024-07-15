@@ -2,6 +2,7 @@
 
 namespace HeyJorgeDev\QStash\Contracts\Resources;
 
+use HeyJorgeDev\QStash\Responses\MessageCancelResponse;
 use HeyJorgeDev\QStash\Responses\MessageEnqueueResponse;
 use HeyJorgeDev\QStash\Responses\MessagePublishResponse;
 use HeyJorgeDev\QStash\ValueObjects\Message;
@@ -17,7 +18,7 @@ interface MessageInterface
 
     public function get(string $messageId): Message;
 
-    public function cancel(string $messageId);
+    public function cancel(string $messageId): MessageCancelResponse;
 
     /**
      * @param  array<string>  $messageIds
