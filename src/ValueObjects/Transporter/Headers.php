@@ -22,11 +22,19 @@ class Headers
     /**
      * @param  array<string>|string  $value
      */
-    public function with(string $key, array|string $value): Headers
+    public function with(string $key, array|string $value): self
     {
         return new self([
             ...$this->headers,
             $key => $value,
+        ]);
+    }
+
+    public function merge(Headers $headers): self
+    {
+        return new self([
+            ...$this->toArray(),
+            ...$headers->toArray(),
         ]);
     }
 }

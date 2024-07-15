@@ -19,6 +19,6 @@ class MessagePublishResponse implements ResponseWithDataInterface
 
     public function getData(): Message
     {
-        // TODO: Implement getData() method.
+        return new Message();
     }
 }

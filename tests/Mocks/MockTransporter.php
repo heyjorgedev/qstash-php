@@ -3,6 +3,7 @@
 namespace HeyJorgeDev\QStash\Tests\Mocks;
 
 use HeyJorgeDev\QStash\Contracts\TransporterInterface;
+use HeyJorgeDev\QStash\ValueObjects\Transporter\Request;
 use HeyJorgeDev\QStash\ValueObjects\Transporter\Response;
 
 class MockTransporter implements TransporterInterface
@@ -14,24 +15,29 @@ class MockTransporter implements TransporterInterface
 
     public function request(string $method, string $path, array $options = []): Response
     {
-        $response = $this->searchForResponse($method, $path);
-        if (! $response) {
-            throw new \Exception('Response not found');
-        }
-
-        return $response;
+        return $this->send((new Request())->withMethod($method)->withUrl($path));
     }
 
-    private function searchForResponse(string $method, string $path): ?Response
+    private function searchForResponse(Request $request): ?Response
     {
         foreach ($this->responses as $key => $response) {
             [$m, $p] = explode(' ', $key);
 
-            if ($method === $m && $path === $p) {
+            if ($request->method === $m && $request->url->toString() === $p) {
                 return $response;
             }
         }
 
         return null;
+    }
+
+    public function send(Request $request): Response
+    {
+        $response = $this->searchForResponse($request);
+        if (! $response) {
+            throw new \Exception('Response not found');
+        }
+
+        return $response;
     }
 }

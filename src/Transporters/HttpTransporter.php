@@ -2,9 +2,9 @@
 
 namespace HeyJorgeDev\QStash\Transporters;
 
-use GuzzleHttp\Psr7\Request;
 use HeyJorgeDev\QStash\Contracts\TransporterInterface;
 use HeyJorgeDev\QStash\ValueObjects\Transporter\Headers;
+use HeyJorgeDev\QStash\ValueObjects\Transporter\Request;
 use HeyJorgeDev\QStash\ValueObjects\Transporter\Response;
 use HeyJorgeDev\QStash\ValueObjects\Url;
 use Psr\Http\Client\ClientExceptionInterface;
@@ -20,15 +20,14 @@ class HttpTransporter implements TransporterInterface
 
     public function request(string $method, string $path, array $options = []): Response
     {
-        $request = new Request(
-            method: $method,
-            uri: $this->baseUrl->append($path)->toString(),
-            headers: $this->headers->toArray(),
-            body: $options['body'] ?? null
-        );
+        $request = (new Request())
+            ->withMethod($method)
+            ->withUrl($this->baseUrl->append($path))
+            ->withHeaders($this->headers->with('Content-Type', 'application/json'))
+            ->withBody($options['body'] ?? null);
 
         try {
-            $response = $this->httpClient->sendRequest($request);
+            $response = $this->httpClient->sendRequest($request->toPsr7Request());
 
             return new Response(
                 $response->getStatusCode(),
@@ -40,5 +39,10 @@ class HttpTransporter implements TransporterInterface
         } catch (\Exception $exception) {
             return new Response(500, [$exception->getMessage()], new Headers([]));
         }
+    }
+
+    public function send(Request $request): Response
+    {
+        // TODO: Implement send() method.
     }
 }
