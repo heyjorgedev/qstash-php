@@ -4,6 +4,7 @@ namespace HeyJorgeDev\QStash\Resources;
 
 use HeyJorgeDev\QStash\Contracts\Resources\MessageInterface;
 use HeyJorgeDev\QStash\Contracts\TransporterInterface;
+use HeyJorgeDev\QStash\Exceptions\NotImplementedException;
 use HeyJorgeDev\QStash\Responses\MessagePublishResponse;
 use HeyJorgeDev\QStash\ValueObjects\Message;
 use HeyJorgeDev\QStash\ValueObjects\MessageToPublish;
@@ -40,26 +41,26 @@ class MessageResource implements MessageInterface
 
     public function enqueue()
     {
-        // TODO: Implement enqueue() method.
+        throw NotImplementedException::askForContributions('enqueue messages');
     }
 
     public function batch()
     {
-        // TODO: Implement batch() method.
+        throw NotImplementedException::askForContributions('batch publish messages');
     }
 
     public function get(string $messageId): Message
     {
-        // TODO: Implement get() method.
+        throw NotImplementedException::askForContributions('get single message');
     }
 
     public function cancel(string $messageId)
     {
-        // TODO: Implement cancel() method.
+        throw NotImplementedException::askForContributions('cancel a message');
     }
 
     public function bulkCancel(array $messageIds)
     {
-        // TODO: Implement bulkCancel() method.
+        throw NotImplementedException::askForContributions('bulk cancel messages');
     }
 }

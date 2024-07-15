@@ -4,6 +4,7 @@ namespace HeyJorgeDev\QStash\Resources;
 
 use HeyJorgeDev\QStash\Contracts\Resources\ScheduleInterface;
 use HeyJorgeDev\QStash\Contracts\TransporterInterface;
+use HeyJorgeDev\QStash\Exceptions\NotImplementedException;
 
 class ScheduleResource implements ScheduleInterface
 {
@@ -11,16 +12,16 @@ class ScheduleResource implements ScheduleInterface
 
     public function list()
     {
-        // TODO: Implement list() method.
+        throw NotImplementedException::askForContributions('list scheduled jobs');
     }
 
     public function get(string $scheduleName)
     {
-        // TODO: Implement get() method.
+        throw NotImplementedException::askForContributions('get scheduled job');
     }
 
     public function delete(string $scheduleName)
     {
-        // TODO: Implement delete() method.
+        throw NotImplementedException::askForContributions('delete scheduled job');
     }
 }
