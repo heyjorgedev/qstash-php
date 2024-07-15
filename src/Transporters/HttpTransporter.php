@@ -23,7 +23,6 @@ class HttpTransporter implements TransporterInterface
         $request = (new Request())
             ->withMethod($method)
             ->withUrl($this->baseUrl->append($path))
-            ->withHeaders($this->headers->with('Content-Type', 'application/json'))
             ->withBody($options['body'] ?? null);
 
         return $this->send($request);
@@ -31,6 +30,7 @@ class HttpTransporter implements TransporterInterface
 
     public function send(Request $request): Response
     {
+        $request = $request->appendHeaders($this->headers->with('Content-Type', 'application/json'));
         try {
             $response = $this->httpClient->sendRequest($request->toPsr7Request());
 
