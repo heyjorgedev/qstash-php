@@ -77,7 +77,7 @@ class Receiver implements ReceiverInterface
         $claims = json_decode($jws->getPayload(), true);
 
         try {
-            $claimChecker->check($claims, ['iss', 'nbf', 'exp', 'sub']);
+            $claimChecker->check($claims, ['iss', 'nbf', 'exp', 'sub', 'body']);
 
             return $this->compareBody($claims['body'], $body);
         } catch (InvalidClaimException) {
