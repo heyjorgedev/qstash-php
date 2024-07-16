@@ -3,6 +3,7 @@
 namespace HeyJorgeDev\QStash;
 
 use HeyJorgeDev\QStash\Support\SystemClock;
+use Psr\Clock\ClockInterface;
 
 class QStash
 {
@@ -22,8 +23,8 @@ class QStash
     /**
      * @param  array<string>  $signingKeys
      */
-    public static function receiver(array $signingKeys): Receiver
+    public static function receiver(array $signingKeys, ?ClockInterface $clock = null): Receiver
     {
-        return new Receiver(new SystemClock(), $signingKeys);
+        return new Receiver($clock ?? new SystemClock(), $signingKeys);
     }
 }
