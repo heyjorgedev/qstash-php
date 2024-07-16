@@ -2,9 +2,9 @@
 
 namespace HeyJorgeDev\QStash\ValueObjects;
 
-class TopicName
+readonly class TopicName
 {
-    public function __construct(public readonly string $name) {}
+    public function __construct(public string $name) {}
 
     public function toString(): string
     {

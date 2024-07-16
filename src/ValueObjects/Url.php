@@ -2,9 +2,9 @@
 
 namespace HeyJorgeDev\QStash\ValueObjects;
 
-class Url
+readonly class Url
 {
-    public function __construct(private readonly string $url) {}
+    public function __construct(private string $url) {}
 
     public function toString(): string
     {

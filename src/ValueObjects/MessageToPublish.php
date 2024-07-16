@@ -4,11 +4,11 @@ namespace HeyJorgeDev\QStash\ValueObjects;
 
 use HeyJorgeDev\QStash\ValueObjects\Transporter\Headers;
 
-class MessageToPublish
+readonly class MessageToPublish
 {
     public function __construct(
-        public readonly Url|TopicName $destination,
-        public readonly array|string $body = [],
+        public Url|TopicName $destination,
+        public array|string $body = [],
         private int $delay = 0,
         private int $retries = 0,
         private string $method = 'GET',

@@ -2,9 +2,9 @@
 
 namespace HeyJorgeDev\QStash\ValueObjects\Transporter;
 
-class Headers
+readonly class Headers
 {
-    public function __construct(private readonly array $headers = []) {}
+    public function __construct(private array $headers = []) {}
 
     public function withAuthorization(?string $apiKey): Headers
     {

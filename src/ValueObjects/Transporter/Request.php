@@ -5,12 +5,12 @@ namespace HeyJorgeDev\QStash\ValueObjects\Transporter;
 use GuzzleHttp\Psr7\Request as Psr7Request;
 use HeyJorgeDev\QStash\ValueObjects\Url;
 
-class Request
+readonly class Request
 {
     public function __construct(
-        public readonly string $method = 'GET',
-        public readonly Url $url = new Url(''),
-        public readonly Headers $headers = new Headers([]),
+        public string $method = 'GET',
+        public Url $url = new Url(''),
+        public Headers $headers = new Headers([]),
         public string|array|null $body = null,
     ) {}
 

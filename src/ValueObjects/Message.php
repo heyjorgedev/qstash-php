@@ -2,11 +2,11 @@
 
 namespace HeyJorgeDev\QStash\ValueObjects;
 
-class Message
+readonly class Message
 {
     public function __construct(
-        public readonly string $id,
-        public readonly bool $deduplicated = false,
+        public string $id,
+        public bool $deduplicated = false,
     ) {}
 
     public static function to(Url|TopicName $url): MessageToPublish
