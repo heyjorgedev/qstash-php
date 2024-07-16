@@ -46,11 +46,11 @@ class Receiver implements ReceiverInterface
         $keys = [];
         foreach ($signingKeys as $signingKey) {
             $keys[] = JWKFactory::createFromSecret(
-                $signingKey,       // The shared secret
-                [                      // Optional additional members
+                $signingKey,
+                [
                     'alg' => 'HS256',
                     'use' => 'sig',
-                ]
+                ],
             );
         }
 
