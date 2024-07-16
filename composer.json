@@ -1,6 +1,6 @@
 {
     "name": "heyjorgedev/qstash-php",
-    "description": "This is my package qstash-php",
+    "description": "QStash SDK for PHP - QStash is an HTTP based messaging and scheduling solution for serverless and edge runtimes",
     "keywords": [
         "qstash"
     ],
