@@ -17,7 +17,7 @@ QStash is the message broker between your serverless apps. You send an HTTP
 request to QStash, that includes a destination, a payload and optional settings.
 We durably store your message and will deliver it to the destination API via
 HTTP. In case the destination is not ready to receive the message, we will retry
-the message later, to guarentee at-least-once delivery.
+the message later, to guarantee at-least-once delivery.
 
 ## Installation
 
@@ -57,6 +57,25 @@ echo $message->getData();
 echo $message->getData()->id;
 ```
 
+## Receiver
+When receiving a message from QStash, you should [verify the signature](https://upstash.com/docs/qstash/howto/signature). We have a class to help you with that:
+
+```php
+use HeyJorgeDev\QStash\QStash;
+
+$receiver = QStash::receiver([
+    'QSTASH_CURRENT_SIGNING_KEY',
+    'QSTASH_NEXT_SIGNING_KEY',
+]);
+
+$result = $receiver->verify(
+    body: $request->getBody(),
+    signature: $request->getHeader('Upstash-Signature'),
+    url: $request->getUri(),
+);
+
+echo $result; // true or false
+```
 ## Testing
 
 ```bash
