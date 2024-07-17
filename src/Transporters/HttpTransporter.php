@@ -18,19 +18,6 @@ class HttpTransporter implements TransporterInterface
         private readonly Headers $headers,
     ) {}
 
-    /**
-     * @deprecated use send method instead
-     */
-    public function request(string $method, string $path, array $options = []): Response
-    {
-        $request = (new Request())
-            ->withMethod($method)
-            ->withUrl($this->baseUrl->append($path))
-            ->withBody($options['body'] ?? null);
-
-        return $this->send($request);
-    }
-
     public function send(Request $request): Response
     {
         $request = $request

@@ -13,11 +13,6 @@ class MockTransporter implements TransporterInterface
      */
     public function __construct(private array $responses) {}
 
-    public function request(string $method, string $path, array $options = []): Response
-    {
-        return $this->send((new Request())->withMethod($method)->withUrl($path));
-    }
-
     private function searchForResponse(Request $request): ?Response
     {
         foreach ($this->responses as $key => $response) {

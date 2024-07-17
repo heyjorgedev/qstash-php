@@ -3,6 +3,7 @@
 use GuzzleHttp\Psr7\Response;
 use HeyJorgeDev\QStash\Transporters\HttpTransporter;
 use HeyJorgeDev\QStash\ValueObjects\Transporter\Headers;
+use HeyJorgeDev\QStash\ValueObjects\Transporter\Request;
 use HeyJorgeDev\QStash\ValueObjects\Url;
 use Psr\Http\Client\ClientInterface;
 
@@ -14,7 +15,7 @@ it('can be initialized', function () {
 
     $transporter = new HttpTransporter($client, new Url('https://example.com'), new Headers([]));
 
-    $response = $transporter->request('GET', 'http://example.com', []);
+    $response = $transporter->send(Request::GET('http://example.com'));
 
     expect($response)
         ->statusCode->toBe(200)
