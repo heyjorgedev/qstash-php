@@ -2,7 +2,11 @@
     "name": "heyjorgedev/qstash-php",
     "description": "QStash SDK for PHP - QStash is an HTTP based messaging and scheduling solution for serverless and edge runtimes",
     "keywords": [
-        "qstash"
+        "qstash",
+        "upstash",
+        "queue",
+        "scheduler",
+        "cronjob"
     ],
     "homepage": "https://github.com/heyjorgedev/qstash-php",
     "license": "MIT",
