@@ -5,6 +5,7 @@ namespace HeyJorgeDev\QStash\Resources;
 use HeyJorgeDev\QStash\Contracts\Resources\MessageInterface;
 use HeyJorgeDev\QStash\Contracts\TransporterInterface;
 use HeyJorgeDev\QStash\Exceptions\NotImplementedException;
+use HeyJorgeDev\QStash\Responses\MessageBatchResponse;
 use HeyJorgeDev\QStash\Responses\MessageCancelResponse;
 use HeyJorgeDev\QStash\Responses\MessageEnqueueResponse;
 use HeyJorgeDev\QStash\Responses\MessagePublishResponse;
@@ -66,7 +67,7 @@ class MessageResource implements MessageInterface
         );
     }
 
-    public function batch()
+    public function batch(array $messages): MessageBatchResponse
     {
         throw NotImplementedException::askForContributions('batch publish messages');
     }
