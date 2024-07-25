@@ -7,10 +7,17 @@ use Psr\Clock\ClockInterface;
 
 class QStash
 {
-    public static function client(string $apiKey): Client
+    private static $apiKey;
+
+    public static function key(string $apiKey)
+    {
+        self::$apiKey = $apiKey;
+    }
+
+    public static function client(?string $apiKey = null): Client
     {
         return self::factory()
-            ->withApiKey($apiKey)
+            ->withApiKey($apiKey ?? self::$apiKey)
             ->withBaseUrl('https://qstash.upstash.io/v2/')
             ->make();
     }
