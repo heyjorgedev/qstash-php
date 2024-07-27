@@ -15,7 +15,7 @@ class MessagePublishResponse implements ResponseWithDataInterface
 
     public function isSuccessful(): bool
     {
-        return $this->statusCode === 200;
+        return $this->statusCode === 201;
     }
 
     public function getErrors(): array
