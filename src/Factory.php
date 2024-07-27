@@ -16,7 +16,7 @@ class Factory
 
     private Url $baseUrl;
 
-    public function withApiKey(string $apiKey): Factory
+    public function withApiKey(#[\SensitiveParameter] string $apiKey): Factory
     {
         $this->apiKey = $apiKey;
 

@@ -7,7 +7,7 @@ use Psr\Clock\ClockInterface;
 
 class QStash
 {
-    public static function client(string $apiKey): Client
+    public static function client(#[\SensitiveParameter] string $apiKey): Client
     {
         return self::factory()
             ->withApiKey($apiKey)
