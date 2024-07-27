@@ -5,7 +5,7 @@ use HeyJorgeDev\QStash\Tests\Mocks\MockClock;
 
 it('can verify a token', function () {
     // mocks the expiration date
-    $now = (new DateTimeImmutable())->setTimestamp(1721069141);
+    $now = (new DateTimeImmutable)->setTimestamp(1721069141);
 
     $receiver = new Receiver(new MockClock($now), [
         'sig_561zQH6V9b96E63sS3b9wvGXosi7',

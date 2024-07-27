@@ -17,7 +17,7 @@ class QStash
 
     public static function factory(): Factory
     {
-        return new Factory();
+        return new Factory;
     }
 
     /**
@@ -25,6 +25,6 @@ class QStash
      */
     public static function receiver(array $signingKeys, ?ClockInterface $clock = null): Receiver
     {
-        return new Receiver($clock ?? new SystemClock(), $signingKeys);
+        return new Receiver($clock ?? new SystemClock, $signingKeys);
     }
 }

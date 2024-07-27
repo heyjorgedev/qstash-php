@@ -35,12 +35,12 @@ class Receiver implements ReceiverInterface
 
         $this->jwsVerifier = new JWSVerifier(
             signatureAlgorithmManager: new AlgorithmManager([
-                new HS256(),
+                new HS256,
             ]),
         );
 
         $this->serializer = new JWSSerializerManager([
-            new CompactSerializer(),
+            new CompactSerializer,
         ]);
 
         $keys = [];
